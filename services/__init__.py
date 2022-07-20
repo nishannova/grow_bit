@@ -5,7 +5,7 @@ import logging
 from loguru import logger
 import jwt
 
-AUTH_FLAG=False
+AUTH_FLAG=True
 
 def validate(token):
     key = "SECURED_GROWBIT"

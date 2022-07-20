@@ -4,7 +4,7 @@ from flask import Flask, flash, request, redirect, url_for, render_template
 import urllib.request
 from flask import Blueprint
 
-bp = Blueprint('ingest',__name__,url_prefix='/growbit')
+bp = Blueprint('ingest',__name__,url_prefix='/qrcode_scanner')
 
 import os
 from werkzeug.utils import secure_filename
@@ -104,7 +104,7 @@ def upload_image():
         flash('Allowed image types are - png, jpg, jpeg, gif')
         return redirect(request.url)
 
-@bp.route('/extract_barcode_info', methods=["POST"])
+@bp.route('/extract_upi_barcode_info', methods=["POST"])
 def extract_barcode():
     barcode_dtls = dict()
     barcode_type= str(request.form.get("barcode_type", "QRCODE"))
