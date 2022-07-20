@@ -12,4 +12,4 @@ COPY ./services /app/services
 COPY ./src /app/src
 COPY ./data /app/data
 WORKDIR /app
-CMD ["gunicorn", "-w", "8", "-b", "23.81.164.201:5001", "services:create_app()"]
+CMD ["gunicorn", "-w", "8", "-b", "0.0.0.0:5001", "services:create_app()"]
