@@ -68,7 +68,7 @@ def create_app(test_config=None):
             logger.info("JWT Token Validated")
         else:
             logger.error("Invalid Authorization: JWT authentication failed")
-            return jsonify({"status": "FAILURE", "auth_error": 'Invalid Authorization'})
+            return jsonify({"status": "FAILURE", "message": 'Invalid Authorization'})
 
     return app
 

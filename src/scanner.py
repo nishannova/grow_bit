@@ -33,7 +33,7 @@ class ScanBarCode:
                 self.scanned_image[idx] = self.images_original[idx]
                 self.barcode_dtls[idx] = barcode_dict
                 self.barcode_dtls[idx].update({
-                    "Processing Details":{
+                    "processing_details":{
                         "Start Time": str(datetime.fromtimestamp(start)),
                         "End Time": str(datetime.fromtimestamp(end)),
                         "Duration": str((end-start)*1000)+' Milliseconds'

@@ -48,9 +48,9 @@ def transform_zbar(image_original, image_processed,barcode_type):
                 logger.warning(f"CO-Ordinates: {barcode.polygon[0]}")
                 cv2.putText(image_original, f"{decoded_value}", (x+10,y-60), cv2.FONT_HERSHEY_SCRIPT_SIMPLEX, 1, (255,0,0), 2)        
                 tr_flag = True
-                if not barcode_dtls.get("Primary Bar-Code"):
-                    barcode_dtls["Primary Bar-Code"] = {}    
-                barcode_dtls["Primary Bar-Code"].update({"BARCODE DATA": str(decoded_value), "BARCODE TYPE": str(barcode.type)})
+                if not barcode_dtls.get("primary_bar_code"):
+                    barcode_dtls["primary_bar_code"] = {}    
+                barcode_dtls["primary_bar_code"].update({"barcode_data": str(decoded_value), "barcode_type": str(barcode.type)})
             else:
                 logger.info(f"No: {idx+1}, Type: {barcode.type}, Data: {decoded_value}")
                 points = np.array([barcode.polygon], np.int32)
@@ -61,10 +61,10 @@ def transform_zbar(image_original, image_processed,barcode_type):
                 logger.warning(f"CO-Ordinates: {barcode.polygon[0]}")
                 cv2.putText(image_original, f"{decoded_value}", (x+10,y-60), cv2.FONT_HERSHEY_SCRIPT_SIMPLEX, 1, (255,0,0), 2)        
                 
-                if not barcode_dtls.get("Secondary Bar-Code"):
-                    barcode_dtls["Secondary Bar-Code"] = {}
-                barcode_dtls["Secondary Bar-Code"].update({"BARCODE DATA": str(decoded_value), "BARCODE TYPE": str(barcode.type)})
-                logger.warning(f"BARCODE TYPE: {barcode.type} DID NOT MATCH WITH SPECIFIED TYPE:{barcode_type}")
+                if not barcode_dtls.get("secondary_bar_code"):
+                    barcode_dtls["secondary_bar_code"] = {}
+                barcode_dtls["secondary_bar_code"].update({"barcode_data": str(decoded_value), "barcode_type": str(barcode.type)})
+                logger.warning(f"barcode_type: {barcode.type} DID NOT MATCH WITH SPECIFIED TYPE:{barcode_type}")
                 tr_flag = True
     except Exception as ex:
         logger.error(f"Error: {ex} occurred while transforming barcode info for {idx} image")

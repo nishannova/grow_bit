@@ -35,28 +35,28 @@ def allowed_file(filename):
      
 def format_data(data):
     code_map = dict()
-    code_map["pa"] = "UPI_ADDRESS"
-    code_map["tn"] = "Provider"
-    code_map["pn"] = "Merchent"
+    code_map["pa"] = "upi_address"
+    code_map["tn"] = "provider"
+    code_map["pn"] = "merchant"
     field = None
     flag = False
-    if data.get("Primary Bar-Code"):
-        dtls = data.get("Primary Bar-Code")
+    if data.get("primary_bar_code"):
+        dtls = data.get("primary_bar_code")
         flag=True
-        field = "Primary Bar-Code"
+        field = "primary_bar_code"
         print("Primary Identified")
-    elif data.get("Secondary Bar-Code"):
-        dtls = data.get("Primary Bar-Code")
+    elif data.get("secondary_bar_code"):
+        dtls = data.get("primary_bar_code")
         flag=True
-        field = "Secondary Bar-Code"
+        field = "secondary_bar_code"
         print("Secondary Identified")
     else:
         print("NO TYPE IDENTIFIED")
     if flag and field:
         print("FLAG AND FIELD TRUE")
         print(f"DATA: {data.get(field)}")
-        print(f"DATA TO BE PARSED: {data[field].get('BARCODE DATA', 'N/A')}")
-        parsed = urlparse(data[field].get("BARCODE DATA", "N/A"))
+        print(f"DATA TO BE PARSED: {data[field].get('barcode_data', 'N/A')}")
+        parsed = urlparse(data[field].get("barcode_data", "N/A"))
         print(f"PARSED: {parsed}")
         query = parse_qs(parsed.query, keep_blank_values=True)
         print(f"QUERY: {query}")
@@ -68,7 +68,7 @@ def format_data(data):
             data[field][code_map["tn"]] = query.get("pn")
             data[field][code_map["pa"]] = query.get("pa")
             data[field][code_map["pn"]] = ["NOT PRESENT IN QR-DETAILS"]
-
+        data["status"] = "SUCCESS"
     print(f"RETURNING DATA: {data}")
     return data
 
@@ -122,7 +122,6 @@ def extract_barcode():
         filename = secure_filename(file.filename)
         
         folder_path = "../uploads"
-        # folder_path = "/app/services/static/uploads"
         file.save(os.path.join(os.getcwd(), "services",app.config['UPLOAD_FOLDER'], filename)) 
         barcode_dtls = process_doc(file_path=os.path.join(os.getcwd(),"services",app.config['UPLOAD_FOLDER']), save=False, ui=True, barcode_type=barcode_type)
         logger.warning(f"BARCODE DETAILS: {barcode_dtls}")

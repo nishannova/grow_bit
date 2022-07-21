@@ -51,16 +51,16 @@ if __name__=='__main__':
     for file, dtls in data.items():
         res.append({
             "File_name": file,
-            "Processing_time (Mili-Sec)": round(float(dtls["Processing Details"]["Duration"].split(" ")[0]), 2),
-            "Decoded": dtls["Secondary Bar-Code"].get("BARCODE DATA", "N/A"),
-            "Type": dtls["Secondary Bar-Code"].get("BARCODE TYPE", "N/A"),
+            "Processing_time (Mili-Sec)": round(float(dtls["processing_details"]["Duration"].split(" ")[0]), 2),
+            "Decoded": dtls["secondary_bar_code"].get("barcode_data", "N/A"),
+            "Type": dtls["secondary_bar_code"].get("barcode_type", "N/A"),
             "Original_value": file.split("-")[0],
-            "Validation": True if str(file.split("-")[0]) == str(dtls["Secondary Bar-Code"].get("BARCODE DATA", "N/A")) else False
+            "Validation": True if str(file.split("-")[0]) == str(dtls["secondary_bar_code"].get("barcode_data", "N/A")) else False
         })
-        # print(dtls["Secondary Bar-Code"].get("BARCODE DATA", "N/A"))
+        # print(dtls["secondary_bar_code"].get("barcode_data", "N/A"))
         from urllib.parse import urlparse, parse_qs
         
-        parsed = urlparse(dtls["Secondary Bar-Code"].get("BARCODE DATA", "N/A"))
+        parsed = urlparse(dtls["secondary_bar_code"].get("barcode_data", "N/A"))
         print(parsed)
         query = parse_qs(parsed.query, keep_blank_values=True)
         print(f"QUERY: {query}")
